@@ -5,6 +5,8 @@
   "include": [
     "*.js",
     "**/*.js",
-    "/home/olivierproulx/.var/app/com.visualstudio.code/data/vscode/extensions/samplavigne.p5-vscode-1.2.15/p5types/global.d.ts"
+    "/home/olivierproulx/.var/app/com.visualstudio.code/data/vscode/extensions/samplavigne.p5-vscode-1.2.15/p5types/global.d.ts",
+    ".js/button.js",
+    ".js/sketch.js"
   ]
 }
