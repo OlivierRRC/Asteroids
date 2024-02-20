@@ -1,5 +1,7 @@
 let font;
-let mainButtons = [];
+//let mainButtons = [];
+
+let main;
 
 let backButton;
 
@@ -57,16 +59,17 @@ function preload() {
 }
 
 function setup() {
+  main = new MainMenu(transMouse);
   createCanvas(640, 480);
   states.current = states.main;
 
   nextButton = new Button(0, 125, 40, "NEXT", next);
 
   backButton = new Button(0, 0, 30, "BACK", back);
-
+  /*
   mainButtons.push(new Button(0, -25, 50, "PLAY", play));
   mainButtons.push(new Button(0, 25, 50, "LEADERBOARD", leaderboard));
-
+*/
   if (getItem("scores") != null) {
     scores = getItem("scores");
   }
@@ -95,7 +98,7 @@ function draw() {
 
   switch (states.current) {
     case states.main:
-      mainMenu();
+      main.draw(transMouse);
       break;
     case states.game:
       text("game", width / 2, height / 2);
@@ -206,6 +209,7 @@ function leaderBoard() {
   pop();
 }
 
+/*
 function mainMenu() {
   push();
   translate(width / 2, height / 3);
@@ -218,19 +222,19 @@ function mainMenu() {
   mainButtons.forEach(updatemainButtons);
   pop();
 }
-
+*/ /*
 function updatemainButtons(b) {
   b.processMouse(transMouse());
   b.draw();
 }
-
+*/
 function mouseWheel(e) {
   scroll -= e.delta / 5;
   scroll = constrain(scroll, -constrain(scores.length - 2.5, 0, 99) * 50, 0);
 }
 
 //Function that returns mouse coordinates relative to the current transformations
-function transMouse() {
+let transMouse = function () {
   //you can tell I borrowed it because it uses const instead of let
   const matrix = drawingContext.getTransform();
   const localCoord = matrix
@@ -238,6 +242,6 @@ function transMouse() {
     .transformPoint(
       createVector(mouseX * pixelDensity(), mouseY * pixelDensity())
     );
-
+  //console.log(localCoord);
   return localCoord;
-}
+};
