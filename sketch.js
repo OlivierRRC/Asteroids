@@ -7,12 +7,11 @@ let nextButton;
 
 let scroll = 0;
 
-let state;
-
 let textPos = 0;
 let initials = "";
 
-const states = {
+let states = {
+  current: 0,
   main: 0,
   game: 1,
   leaderboard: 2,
@@ -27,23 +26,23 @@ let play = function () {
   //print("play");
   //state = states.game;
   initials = "";
-  state = states.gameOver;
+  states.current = states.gameOver;
   score = floor(random(0, 10000));
 };
 
 let leaderboard = function () {
   //print("leaderboard");
   scroll = 0;
-  state = states.leaderboard;
+  states.current = states.leaderboard;
   //get scores
 };
 
 let back = function () {
-  state = states.main;
+  states.current = states.main;
 };
 
 let next = function () {
-  state = states.leaderboard;
+  states.current = states.leaderboard;
   //save score and sort scores
   scores.push({
     name: initials,
@@ -59,7 +58,7 @@ function preload() {
 
 function setup() {
   createCanvas(640, 480);
-  state = states.main;
+  states.current = states.main;
 
   nextButton = new Button(0, 125, 40, "NEXT", next);
 
@@ -94,7 +93,7 @@ function draw() {
   drawingContext.shadowBlur = 15;
   drawingContext.shadowColor = color(255);
 
-  switch (state) {
+  switch (states.current) {
     case states.main:
       mainMenu();
       break;
