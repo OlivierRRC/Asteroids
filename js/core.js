@@ -2,6 +2,7 @@ let font;
 //let mainButtons = [];
 
 let main;
+let leaderBoard;
 
 let backButton;
 
@@ -25,18 +26,14 @@ let score;
 let scores = [];
 
 let play = function () {
-  //print("play");
-  //state = states.game;
   initials = "";
   states.current = states.gameOver;
   score = floor(random(0, 10000));
 };
 
 let leaderboard = function () {
-  //print("leaderboard");
   scroll = 0;
   states.current = states.leaderboard;
-  //get scores
 };
 
 let back = function () {
@@ -60,12 +57,14 @@ function preload() {
 
 function setup() {
   main = new MainMenu(transMouse);
+  leaderBoard = new LeaderBoard(transMouse);
+
   createCanvas(640, 480);
   states.current = states.main;
 
   nextButton = new Button(0, 125, 40, "NEXT", next);
 
-  backButton = new Button(0, 0, 30, "BACK", back);
+  //backButton = new Button(0, 0, 30, "BACK", back);
   /*
   mainButtons.push(new Button(0, -25, 50, "PLAY", play));
   mainButtons.push(new Button(0, 25, 50, "LEADERBOARD", leaderboard));
@@ -98,13 +97,13 @@ function draw() {
 
   switch (states.current) {
     case states.main:
-      main.draw(transMouse);
+      main.draw();
       break;
     case states.game:
       text("game", width / 2, height / 2);
       break;
     case states.leaderboard:
-      leaderBoard();
+      leaderBoard.draw();
       break;
     case states.gameOver:
       gameOver();
@@ -173,6 +172,7 @@ function gameOver() {
   pop();
 }
 
+/*
 function leaderBoard() {
   push();
   translate(0, scroll);
@@ -208,7 +208,7 @@ function leaderBoard() {
 
   pop();
 }
-
+*/
 /*
 function mainMenu() {
   push();
