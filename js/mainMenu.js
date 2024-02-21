@@ -4,7 +4,11 @@ class MainMenu {
 
     this.buttons = [];
     this.buttons.push(new Button(0, -25, 50, "PLAY", play));
-    this.buttons.push(new Button(0, 25, 50, "LEADERBOARD", leaderboard));
+    this.buttons.push(
+      new Button(0, 25, 50, "LEADERBOARD", () => {
+        states.current = states.leaderboard;
+      })
+    );
   }
 
   draw() {

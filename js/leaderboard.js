@@ -1,9 +1,11 @@
 class LeaderBoard {
   constructor(mouse, states, scores) {
     this.mouse = mouse;
-
     this.states = states;
     this.scores = scores;
+
+    this.s = 0;
+
     this.b = new Button(0, 0, 30, "BACK", () => {
       this.states.current = this.states.main;
     });
@@ -49,6 +51,12 @@ class LeaderBoard {
   }
 
   scroll(s) {
-    this.s = s;
+    this.s -= s;
+
+    this.s = constrain(
+      this.s,
+      -constrain(this.scores.length - 2.5, 0, 99) * 50,
+      0
+    );
   }
 }

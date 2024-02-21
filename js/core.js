@@ -4,8 +4,6 @@ let main;
 let leaderBoard;
 let gameOver;
 
-let scroll = 0;
-
 let states = {
   current: 0,
   main: 0,
@@ -16,15 +14,10 @@ let states = {
 
 let scores = [];
 
+//remove this when proper play is implemented
 let play = function () {
   states.current = states.gameOver;
   gameOver.setup(floor(random(0, 10000)));
-};
-
-let leaderboard = function () {
-  scroll = 0;
-  leaderBoard.scroll(0);
-  states.current = states.leaderboard;
 };
 
 function preload() {
@@ -97,9 +90,7 @@ function keyPressed() {
 
 //get mouse wheel delta and save how far the mouse wheel should have scrolled
 function mouseWheel(e) {
-  scroll -= e.delta / 5;
-  scroll = constrain(scroll, -constrain(scores.length - 2.5, 0, 99) * 50, 0);
-  leaderBoard.scroll(scroll);
+  leaderBoard.scroll(e.delta / 5);
 }
 
 //Function that returns mouse coordinates relative to the current transformations
