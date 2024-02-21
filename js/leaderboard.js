@@ -8,7 +8,7 @@ class LeaderBoard {
   draw() {
     push();
 
-    translate(0, scroll);
+    translate(0, this.s);
 
     push();
 
@@ -38,9 +38,13 @@ class LeaderBoard {
 
     translate(40, height - 20);
 
-    this.b.processMouse(this.mouse);
+    this.b.processMouse(this.mouse());
     this.b.draw();
 
     pop();
+  }
+
+  scroll(s) {
+    this.s = s;
   }
 }
