@@ -27,18 +27,6 @@ let leaderboard = function () {
   states.current = states.leaderboard;
 };
 
-let next = function () {
-  states.current = states.leaderboard;
-
-  scores.push({
-    name: gameOver.getInitials(),
-    score: gameOver.getScore(),
-  });
-
-  scores = scores.sort(({ score: a }, { score: b }) => b - a);
-  storeItem("scores", scores);
-};
-
 function preload() {
   font = loadFont("Assets/NovaMono-Regular.ttf");
 }
@@ -51,7 +39,7 @@ function setup() {
 
   main = new MainMenu(transMouse);
   leaderBoard = new LeaderBoard(transMouse, states, scores);
-  gameOver = new GameOver(transMouse);
+  gameOver = new GameOver(transMouse, states, scores);
 
   createCanvas(640, 480);
   states.current = states.main;

@@ -1,9 +1,22 @@
 class GameOver {
-  constructor(mouse) {
+  constructor(mouse, states, scores) {
     this.mouse = mouse;
+    this.states = states;
+    this.scores = scores;
+
     this.textPos = 0;
 
-    this.b = new Button(0, 125, 40, "NEXT", next);
+    this.b = new Button(0, 125, 40, "NEXT", () => {
+      this.states.current = this.states.leaderboard;
+
+      this.scores.push({
+        name: this.initials,
+        score: this.score,
+      });
+
+      this.scores = this.scores.sort(({ score: a }, { score: b }) => b - a);
+      storeItem("scores", this.scores);
+    });
   }
 
   getInitials() {
