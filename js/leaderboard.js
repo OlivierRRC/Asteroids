@@ -1,8 +1,12 @@
 class LeaderBoard {
-  constructor(mouse) {
+  constructor(mouse, states, scores) {
     this.mouse = mouse;
 
-    this.b = new Button(0, 0, 30, "BACK", back);
+    this.states = states;
+    this.scores = scores;
+    this.b = new Button(0, 0, 30, "BACK", () => {
+      this.states.current = this.states.main;
+    });
   }
 
   draw() {
@@ -23,11 +27,11 @@ class LeaderBoard {
 
     push();
 
-    for (let i = 0; i < scores.length; i++) {
+    for (let i = 0; i < this.scores.length; i++) {
       textAlign(RIGHT);
-      text(i + 1 + " " + scores[i].name, -75, 0);
+      text(i + 1 + " " + this.scores[i].name, -75, 0);
       textAlign(LEFT);
-      text(nf(scores[i].score, 5), 75, 0);
+      text(nf(this.scores[i].score, 5), 75, 0);
       translate(0, 50);
     }
     pop();

@@ -18,7 +18,7 @@ let scores = [];
 
 let play = function () {
   states.current = states.gameOver;
-  gameOver.reset(floor(random(0, 10000)));
+  gameOver.setup(floor(random(0, 10000)));
 };
 
 let leaderboard = function () {
@@ -27,14 +27,9 @@ let leaderboard = function () {
   states.current = states.leaderboard;
 };
 
-let back = function () {
-  states.current = states.main;
-};
-
 let next = function () {
   states.current = states.leaderboard;
 
-  //save score and sort scores
   scores.push({
     name: gameOver.getInitials(),
     score: gameOver.getScore(),
@@ -50,16 +45,16 @@ function preload() {
 
 function setup() {
   //storeItem("scores", null);
+  if (getItem("scores") != null) {
+    scores = getItem("scores");
+  }
+
   main = new MainMenu(transMouse);
-  leaderBoard = new LeaderBoard(transMouse);
+  leaderBoard = new LeaderBoard(transMouse, states, scores);
   gameOver = new GameOver(transMouse);
 
   createCanvas(640, 480);
   states.current = states.main;
-
-  if (getItem("scores") != null) {
-    scores = getItem("scores");
-  }
 }
 
 function draw() {
@@ -94,6 +89,7 @@ function draw() {
   crtGrill();
 }
 
+//adds crt grill effect to be rendered on top of the screen
 function crtGrill() {
   stroke(0);
   strokeWeight(0.8);
@@ -111,6 +107,7 @@ function keyPressed() {
   }
 }
 
+//get mouse wheel delta and save how far the mouse wheel should have scrolled
 function mouseWheel(e) {
   scroll -= e.delta / 5;
   scroll = constrain(scroll, -constrain(scores.length - 2.5, 0, 99) * 50, 0);
