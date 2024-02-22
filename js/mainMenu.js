@@ -1,9 +1,14 @@
 class MainMenu {
-  constructor(mouse) {
+  constructor(mouse, states, gameOver) {
     this.mouse = mouse;
 
     this.buttons = [];
-    this.buttons.push(new Button(0, -25, 50, "PLAY", play));
+    this.buttons.push(
+      new Button(0, -25, 50, "PLAY", () => {
+        states.current = states.gameOver;
+        gameOver.setup(floor(random(0, 10000)));
+      })
+    );
     this.buttons.push(
       new Button(0, 25, 50, "LEADERBOARD", () => {
         states.current = states.leaderboard;
