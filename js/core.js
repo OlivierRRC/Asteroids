@@ -30,9 +30,9 @@ function setup() {
     scores = getItem("scores");
   }
 
-  main = new MainMenu(transMouse, states, gameOver);
   leaderBoard = new LeaderBoard(transMouse, states, scores);
   gameOver = new GameOver(transMouse, states, scores);
+  main = new MainMenu(transMouse, states, gameOver);
 
   createCanvas(640, 480);
   states.current = states.main;
