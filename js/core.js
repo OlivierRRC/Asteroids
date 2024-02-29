@@ -3,6 +3,7 @@ let font;
 let main;
 let leaderBoard;
 let gameOver;
+let game;
 
 let states = {
   current: 0,
@@ -13,12 +14,6 @@ let states = {
 };
 
 let scores = [];
-
-//remove this when proper play is implemented
-let play = function () {
-  states.current = states.gameOver;
-  gameOver.setup(floor(random(0, 10000)));
-};
 
 function preload() {
   font = loadFont("Assets/NovaMono-Regular.ttf");
@@ -33,9 +28,10 @@ function setup() {
   leaderBoard = new LeaderBoard(transMouse, states, scores);
   gameOver = new GameOver(transMouse, states, scores);
   main = new MainMenu(transMouse, states, gameOver);
+  game = new Game();
 
   createCanvas(640, 480);
-  states.current = states.main;
+  states.current = states.game;
 }
 
 function draw() {
@@ -56,7 +52,7 @@ function draw() {
       main.draw();
       break;
     case states.game:
-      text("game", width / 2, height / 2);
+      game.draw();
       break;
     case states.leaderboard:
       leaderBoard.draw();

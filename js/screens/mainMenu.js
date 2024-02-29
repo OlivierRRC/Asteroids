@@ -5,8 +5,8 @@ class MainMenu {
     this.buttons = [];
     this.buttons.push(
       new Button(0, -25, 50, "PLAY", () => {
-        states.current = states.gameOver;
-        gameOver.setup(floor(random(0, 10000)));
+        states.current = states.game;
+        //gameOver.setup(floor(random(0, 10000)));
       })
     );
     this.buttons.push(
