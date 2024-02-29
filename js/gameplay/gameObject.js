@@ -19,4 +19,7 @@ class GameObject {
   getPos() {
     return this.position;
   }
+  getRot() {
+    return this.rotation;
+  }
 }

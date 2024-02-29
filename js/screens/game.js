@@ -4,6 +4,6 @@ class Game {
   }
 
   update() {
-    this.player.draw();
+    this.player.update();
   }
 }
