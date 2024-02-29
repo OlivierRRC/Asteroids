@@ -52,7 +52,7 @@ function draw() {
       main.draw();
       break;
     case states.game:
-      game.draw();
+      game.update();
       break;
     case states.leaderboard:
       leaderBoard.draw();

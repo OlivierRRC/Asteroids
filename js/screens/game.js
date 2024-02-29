@@ -1,7 +1,9 @@
 class Game {
-  constructor() {}
+  constructor() {
+    this.player = new Ship();
+  }
 
-  draw() {
-    square(width / 2, height / 2, 100);
+  update() {
+    this.player.draw();
   }
 }
