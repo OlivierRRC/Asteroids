@@ -7,6 +7,7 @@ class GameObject {
   transform() {
     translate(this.position);
     rotate(this.rotation);
+    this.wrapPos();
   }
 
   setPos(pos) {
@@ -21,5 +22,19 @@ class GameObject {
   }
   getRot() {
     return this.rotation;
+  }
+
+  wrapPos() {
+    if (this.position.x > width) {
+      this.position.x = 0;
+    } else if (this.position.x < 0) {
+      this.position.x = width;
+    }
+
+    if (this.position.y > height) {
+      this.position.y = 0;
+    } else if (this.position.y < 0) {
+      this.position.y = height;
+    }
   }
 }

@@ -1,10 +1,14 @@
 class Ship extends GameObject {
-  superconstructor() {
+  constructor() {
+    super();
     this.acceleration = createVector(0, 0);
     this.velocity = createVector(0, 0);
 
     this.rAcceleration = 0;
     this.rVelocity = 0;
+
+    this.teleportCooldown = 3;
+    this.timer = 0;
   }
 
   update() {
@@ -13,13 +17,10 @@ class Ship extends GameObject {
     this.thrust();
     this.drawShip();
     this.turn();
+    this.teleport();
   }
 
   turn() {
-    if (this.rVelocity == undefined) {
-      this.rVelocity = 0;
-    }
-
     if (keyIsDown(65)) {
       this.rAcceleration -= (PI / 180) * 0.01;
     } else if (keyIsDown(68)) {
@@ -28,16 +29,12 @@ class Ship extends GameObject {
       this.rAcceleration = 0;
     }
     this.rVelocity += this.rAcceleration;
-    this.rVelocity += this.rVelocity * 0.01 * -1;
+    this.rVelocity += this.rVelocity * 0.04 * -1;
     this.rVelocity = constrain(this.rVelocity, -0.1, 0.1);
     this.setRot(this.getRot() + this.rVelocity);
   }
 
   thrust() {
-    if (this.velocity == undefined) {
-      this.velocity = createVector(0, 0);
-    }
-
     //get input
     if (keyIsDown(87)) {
       let x = 1 * cos(this.rotation - PI / 2);
@@ -50,12 +47,25 @@ class Ship extends GameObject {
     //accelerate
     this.velocity.add(this.acceleration);
     //friction
-    this.velocity.add(this.velocity.copy().normalize().mult(-1).mult(0.01));
+    this.velocity.add(this.velocity.copy().normalize().mult(-1).mult(0.04));
+    //limit
+    this.velocity.limit(5);
     //apply
     this.setPos(this.getPos().add(this.velocity));
   }
 
+  teleport() {
+    //print();
+
+    if (keyIsDown(16) && millis() / 1000 > this.timer + this.teleportCooldown) {
+      this.setPos(createVector(random(width), random(height)));
+      this.timer = millis() / 1000;
+    }
+  }
+
   drawShip() {
+    push();
+    translate(0, -15);
     noFill();
     beginShape();
     vertex(0, 0);
@@ -64,9 +74,12 @@ class Ship extends GameObject {
     vertex(-10, 30);
     vertex(0, 0);
     endShape();
+    pop();
   }
 
   drawThruster() {
+    push();
+    translate(0, -15);
     fill(255);
     beginShape();
     vertex(0, 25);
@@ -75,5 +88,6 @@ class Ship extends GameObject {
     vertex(-5, 30);
     vertex(0, 25);
     endShape();
+    pop();
   }
 }
