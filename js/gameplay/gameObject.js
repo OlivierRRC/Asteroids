@@ -1,8 +1,10 @@
 class GameObject {
-  constructor(bounds) {
-    this.position = createVector(300, 200);
+  constructor(bounds, size) {
+    this.position = createVector(bounds.x / 2, bounds.y / 2);
+    this.position = createVector(0, 0);
     this.rotation = 0;
     this.bounds = bounds;
+    this.size = size;
   }
 
   transform() {
@@ -26,16 +28,16 @@ class GameObject {
   }
 
   wrapPos() {
-    if (this.position.x > this.bounds.x) {
-      this.position.x = 0;
-    } else if (this.position.x < 0) {
-      this.position.x = this.bounds.x;
+    if (this.position.x > this.bounds.x + this.size) {
+      this.position.x = 0 - this.size;
+    } else if (this.position.x < 0 - this.size) {
+      this.position.x = this.bounds.x + this.size;
     }
 
-    if (this.position.y > this.bounds.y) {
-      this.position.y = 0;
-    } else if (this.position.y < 0) {
-      this.position.y = this.bounds.y;
+    if (this.position.y > this.bounds.y + this.size) {
+      this.position.y = 0 - this.size;
+    } else if (this.position.y < 0 - this.size) {
+      this.position.y = this.bounds.y + this.size;
     }
   }
 }

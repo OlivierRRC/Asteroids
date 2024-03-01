@@ -1,6 +1,6 @@
 class Ship extends GameObject {
   constructor(bounds) {
-    super(bounds);
+    super(bounds, 15);
     this.acceleration = createVector(0, 0);
     this.velocity = createVector(0, 0);
 
@@ -9,15 +9,19 @@ class Ship extends GameObject {
 
     this.teleportCooldown = 3;
     this.timer = 0;
+    this.setPos(createVector(bounds.x / 2, bounds.y / 2));
   }
 
   update() {
+    push();
     this.transform();
     strokeWeight(4);
     this.thrust();
-    this.drawShip();
+
     this.turn();
     this.teleport();
+    this.drawShip();
+    pop();
   }
 
   turn() {
@@ -66,6 +70,7 @@ class Ship extends GameObject {
   drawShip() {
     push();
     translate(0, -15);
+    point(0, -10, 10);
     noFill();
     beginShape();
     vertex(0, 0);
