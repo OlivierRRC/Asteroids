@@ -15,6 +15,8 @@ let states = {
 
 let scores = [];
 
+let bounds;
+
 function preload() {
   font = loadFont("Assets/NovaMono-Regular.ttf");
 }
@@ -25,13 +27,15 @@ function setup() {
     scores = getItem("scores");
   }
 
-  leaderBoard = new LeaderBoard(transMouse, states, scores);
-  gameOver = new GameOver(transMouse, states, scores);
-  main = new MainMenu(transMouse, states, gameOver);
-  game = new Game();
+  bounds = createVector(640, 480);
 
-  createCanvas(640, 480);
-  states.current = states.game;
+  leaderBoard = new LeaderBoard(transMouse, states, bounds, scores);
+  gameOver = new GameOver(transMouse, states, bounds, scores);
+  main = new MainMenu(transMouse, states, bounds);
+  game = new Game(states, bounds, gameOver);
+
+  createCanvas(bounds.x, bounds.y);
+  states.current = states.main;
 }
 
 function draw() {

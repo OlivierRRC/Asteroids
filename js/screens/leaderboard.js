@@ -1,7 +1,8 @@
 class LeaderBoard {
-  constructor(mouse, states, scores) {
+  constructor(mouse, states, bounds, scores) {
     this.mouse = mouse;
     this.states = states;
+    this.bounds = bounds;
     this.scores = scores;
 
     this.s = 0;
@@ -18,13 +19,13 @@ class LeaderBoard {
 
     push();
 
-    translate(width / 2, height / 3);
+    translate(this.bounds.x / 2, this.bounds.y / 3);
     textSize(100);
     text("LEADERBOARD", 0, 0);
 
     pop();
 
-    translate(width / 2, (height / 3) * 2);
+    translate(this.bounds.x / 2, (this.bounds.y / 3) * 2);
     textSize(50);
 
     push();
@@ -42,7 +43,7 @@ class LeaderBoard {
 
     push();
 
-    translate(40, height - 20);
+    translate(40, this.bounds.y - 20);
 
     this.b.processMouse(this.mouse());
     this.b.draw();

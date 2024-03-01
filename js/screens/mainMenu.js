@@ -1,6 +1,7 @@
 class MainMenu {
-  constructor(mouse, states, gameOver) {
+  constructor(mouse, states, bounds) {
     this.mouse = mouse;
+    this.bounds = bounds;
 
     this.buttons = [];
     this.buttons.push(
@@ -20,7 +21,7 @@ class MainMenu {
     //Big title "ASTEROIDS"
     push();
 
-    translate(width / 2, height / 3);
+    translate(this.bounds.x / 2, this.bounds.y / 3);
     textSize(100);
     text("ASTEROIDS", 0, 0);
 
@@ -28,7 +29,7 @@ class MainMenu {
     //Buttons
     push();
 
-    translate(width / 2, (height / 3) * 2);
+    translate(this.bounds.x / 2, (this.bounds.y / 3) * 2);
     this.buttons.forEach((b) => {
       b.processMouse(this.mouse());
       b.draw();

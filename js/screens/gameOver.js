@@ -1,7 +1,8 @@
 class GameOver {
-  constructor(mouse, states, scores) {
+  constructor(mouse, states, bounds, scores) {
     this.mouse = mouse;
     this.states = states;
+    this.bounds = bounds;
     this.scores = scores;
 
     this.textPos = 0;
@@ -44,13 +45,13 @@ class GameOver {
 
   draw() {
     push();
-    translate(width / 2, height / 3);
+    translate(this.bounds.x / 2, this.bounds.y / 3);
     textSize(100);
     text("GAME OVER", 0, 0);
     pop();
 
     push();
-    translate(width / 2, (height / 7) * 4);
+    translate(this.bounds.x / 2, (this.bounds.y / 7) * 4);
     textSize(50);
     text("SCORE:" + nf(this.score, 5), 0, 0);
 

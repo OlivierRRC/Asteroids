@@ -1,6 +1,6 @@
 class Ship extends GameObject {
-  constructor() {
-    super();
+  constructor(bounds) {
+    super(bounds);
     this.acceleration = createVector(0, 0);
     this.velocity = createVector(0, 0);
 
