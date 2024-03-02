@@ -4,7 +4,6 @@ class Bullet extends GameObject {
     this.position = pos;
     this.rotation = rot;
     this.objects = objects;
-    print(this.size);
   }
 
   collide() {

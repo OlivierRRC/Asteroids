@@ -16,6 +16,7 @@ class Ship extends GameObject {
     this.objects = objects;
 
     this.setPos(createVector(bounds.x / 2, bounds.y / 2));
+    this.invincible = true;
   }
 
   collide() {
@@ -23,6 +24,7 @@ class Ship extends GameObject {
     this.position.y = bounds.y / 2;
     this.velocity.x = 0;
     this.velocity.y = 0;
+    this.invincible = true;
   }
 
   update() {
@@ -43,7 +45,6 @@ class Ship extends GameObject {
       let x = 1 * cos(this.rotation - PI / 2);
       let y = 1 * sin(this.rotation - PI / 2);
       let dir = createVector(x, y);
-      print("bang");
       this.objects.push(
         new Bullet(
           this.bounds,
@@ -54,14 +55,17 @@ class Ship extends GameObject {
       );
       this.velocity.sub(dir);
       this.shotTimer = millis() / 1000;
+      this.invincible = false;
     }
   }
 
   turn() {
     if (keyIsDown(65)) {
       this.rAcceleration -= (PI / 180) * 0.01;
+      this.invincible = false;
     } else if (keyIsDown(68)) {
       this.rAcceleration += (PI / 180) * 0.01;
+      this.invincible = false;
     } else {
       this.rAcceleration = 0;
     }
@@ -78,6 +82,7 @@ class Ship extends GameObject {
       let y = 1 * sin(this.rotation - PI / 2);
       this.acceleration.add(createVector(x, y).div(100));
       this.drawThruster();
+      this.invincible = false;
     } else {
       this.acceleration = createVector(0, 0);
     }
@@ -101,6 +106,7 @@ class Ship extends GameObject {
       let pos = createVector(random(width), random(height));
       this.setPos(pos);
       this.teleportTimer = millis() / 1000;
+      this.invincible = false;
     }
   }
 
