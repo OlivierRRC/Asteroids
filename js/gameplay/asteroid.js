@@ -13,7 +13,7 @@ class Asteroid extends GameObject {
     this.setPos(startPos);
   }
 
-  collide(index) {
+  collide() {
     if (this.generation != 0) {
       for (let i = 0; i < 2; i++) {
         this.objects.push(
@@ -28,7 +28,7 @@ class Asteroid extends GameObject {
         );
       }
     }
-    super.collide(index);
+    let index = this.objects.indexOf(this);
     this.objects.splice(index, 1);
   }
 

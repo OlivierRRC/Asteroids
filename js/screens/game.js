@@ -1,7 +1,7 @@
 class Game {
   constructor(states, bounds, gameOver) {
     this.objects = [];
-    this.player = new Ship(bounds);
+    this.player = new Ship(bounds, this.objects);
     this.objects.push(this.player);
     //this.asteroids = [];
     for (let i = 0; i < 10; i++) {

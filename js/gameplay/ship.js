@@ -1,5 +1,5 @@
 class Ship extends GameObject {
-  constructor(bounds) {
+  constructor(bounds, objects) {
     super(bounds, 15);
     this.acceleration = createVector(0, 0);
     this.velocity = createVector(0, 0);
@@ -13,11 +13,12 @@ class Ship extends GameObject {
     this.shotCooldown = 0.5;
     this.shotTimer = 0;
 
+    this.objects = objects;
+
     this.setPos(createVector(bounds.x / 2, bounds.y / 2));
   }
 
-  collide(index) {
-    super.collide(index);
+  collide() {
     this.position.x = bounds.x / 2;
     this.position.y = bounds.y / 2;
     this.velocity.x = 0;
@@ -31,14 +32,27 @@ class Ship extends GameObject {
     this.thrust();
     this.turn();
     this.teleport();
-    this.shoot();
+
     this.drawShip();
     pop();
+    this.shoot();
   }
 
   shoot() {
     if (keyIsDown(32) && millis() / 1000 > this.shotTimer + this.shotCooldown) {
+      let x = 1 * cos(this.rotation - PI / 2);
+      let y = 1 * sin(this.rotation - PI / 2);
+      let dir = createVector(x, y);
       print("bang");
+      this.objects.push(
+        new Bullet(
+          this.bounds,
+          this.objects,
+          this.position.copy().add(dir.copy().mult(20)),
+          this.rotation
+        )
+      );
+      this.velocity.sub(dir);
       this.shotTimer = millis() / 1000;
     }
   }
@@ -93,7 +107,6 @@ class Ship extends GameObject {
   drawShip() {
     push();
     translate(0, -15);
-    point(0, -10, 10);
     noFill();
     beginShape();
     vertex(0, 0);
