@@ -17,6 +17,7 @@ class Ship extends GameObject {
 
     this.setPos(createVector(bounds.x / 2, bounds.y / 2));
     this.invincible = true;
+    this.lives = 3;
   }
 
   collide() {
@@ -25,6 +26,7 @@ class Ship extends GameObject {
     this.velocity.x = 0;
     this.velocity.y = 0;
     this.invincible = true;
+    this.lives -= 1;
   }
 
   update() {

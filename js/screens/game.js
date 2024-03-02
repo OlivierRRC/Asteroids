@@ -39,16 +39,25 @@ class Game {
     this.collisions.check();
 
     this.drawScore();
+    this.drawLives();
 
     //esc for game over
-    if (keyIsDown(27)) {
-      this.gameOver.setup(floor(random(1000)));
+    if (this.player.lives <= 0) {
+      this.gameOver.setup(this.score.score);
       this.states.current = states.gameOver;
     }
   }
 
+  drawLives() {
+    push();
+    textFont("Courier New");
+    textSize(65);
+    textAlign(LEFT);
+    text("♥".repeat(this.player.lives), 0 + 25, 35);
+    pop();
+  }
+
   drawScore() {
-    //square(0, 0, 100);
     textSize(50);
     textAlign(RIGHT);
     text(nf(this.score.score, 5), this.bounds.x - 25, 25);
