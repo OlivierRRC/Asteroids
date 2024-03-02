@@ -1,11 +1,18 @@
 class Collisions {
-  constructor(objects, score) {
+  constructor(objects, score, rePopulate) {
     this.objects = objects;
     this.score = score;
+    this.rePopulate = rePopulate;
+    this.level = 1;
   }
 
   check() {
+    this.asteroids = false;
+
     for (let i = 0; i < this.objects.length; i++) {
+      if (this.objects[i] instanceof Asteroid) {
+        this.asteroids = true;
+      }
       for (let j = 0; j < this.objects.length; j++) {
         if (this.objects[i] != this.objects[j]) {
           let a = this.objects[i];
@@ -50,6 +57,10 @@ class Collisions {
           }
         }
       }
+    }
+
+    if (this.asteroids == false) {
+      this.rePopulate();
     }
   }
 

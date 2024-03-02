@@ -9,7 +9,7 @@ class GameOver {
 
     this.b = new Button(0, 125, 40, "NEXT", () => {
       print(this.game);
-      this.game.setup();
+      this.game.setup(1);
       print(this.game);
 
       this.states.current = this.states.leaderboard;

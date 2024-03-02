@@ -8,12 +8,25 @@ class Game {
   }
 
   setup() {
-    print("woah");
+    this.level = 0;
     this.objects = [];
     this.player = new Ship(bounds, this.objects);
     this.objects.push(this.player);
+    this.populateAsteroids();
+    this.score = {
+      score: 0,
+    };
 
-    for (let i = 0; i < 10; i++) {
+    this.collisions = new Collisions(
+      this.objects,
+      this.score,
+      this.populateAsteroids
+    );
+  }
+
+  populateAsteroids() {
+    this.level += 1;
+    for (let i = 0; i < this.level; i++) {
       this.objects.push(
         new Asteroid(
           bounds,
@@ -24,12 +37,7 @@ class Game {
           2
         )
       );
-      this.score = {
-        score: 0,
-      };
     }
-
-    this.collisions = new Collisions(this.objects, this.score);
   }
 
   update() {
