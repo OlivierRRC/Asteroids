@@ -1,14 +1,35 @@
 class Asteroid extends GameObject {
-  constructor(bounds) {
-    super(bounds, 50);
+  constructor(bounds, objects, startPos, startRot, size, generation) {
+    super(bounds, size);
 
+    this.generation = generation;
+    this.objects = objects;
     this.resolution = 20;
     this.noiseScale = 3;
-    this.s = 50;
+    this.s = size;
     this.points = [];
     this.generateShape();
-    this.setRot(random(TWO_PI));
-    this.setPos(createVector(random(bounds.x), random(bounds.y)));
+    this.setRot(startRot);
+    this.setPos(startPos);
+  }
+
+  collide(index) {
+    if (this.generation != 0) {
+      for (let i = 0; i < 2; i++) {
+        this.objects.push(
+          new Asteroid(
+            this.bounds,
+            this.objects,
+            this.position.copy(),
+            this.rotation + (PI / 4) * i,
+            (this.s / 3) * 2,
+            this.generation - 1
+          )
+        );
+      }
+    }
+    super.collide(index);
+    this.objects.splice(index, 1);
   }
 
   update() {

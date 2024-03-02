@@ -27,6 +27,10 @@ class GameObject {
     return this.rotation;
   }
 
+  collide(index) {
+    print(index);
+  }
+
   wrapPos() {
     if (this.position.x > this.bounds.x + this.size) {
       this.position.x = 0 - this.size;

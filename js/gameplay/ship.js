@@ -8,8 +8,20 @@ class Ship extends GameObject {
     this.rVelocity = 0;
 
     this.teleportCooldown = 3;
-    this.timer = 0;
+    this.teleportTimer = 0;
+
+    this.shotCooldown = 0.5;
+    this.shotTimer = 0;
+
     this.setPos(createVector(bounds.x / 2, bounds.y / 2));
+  }
+
+  collide(index) {
+    super.collide(index);
+    this.position.x = bounds.x / 2;
+    this.position.y = bounds.y / 2;
+    this.velocity.x = 0;
+    this.velocity.y = 0;
   }
 
   update() {
@@ -17,11 +29,18 @@ class Ship extends GameObject {
     this.transform();
     strokeWeight(4);
     this.thrust();
-
     this.turn();
     this.teleport();
+    this.shoot();
     this.drawShip();
     pop();
+  }
+
+  shoot() {
+    if (keyIsDown(32) && millis() / 1000 > this.shotTimer + this.shotCooldown) {
+      print("bang");
+      this.shotTimer = millis() / 1000;
+    }
   }
 
   turn() {
@@ -61,9 +80,13 @@ class Ship extends GameObject {
   teleport() {
     //print();
 
-    if (keyIsDown(16) && millis() / 1000 > this.timer + this.teleportCooldown) {
-      this.setPos(createVector(random(width), random(height)));
-      this.timer = millis() / 1000;
+    if (
+      keyIsDown(16) &&
+      millis() / 1000 > this.teleportTimer + this.teleportCooldown
+    ) {
+      let pos = createVector(random(width), random(height));
+      this.setPos(pos);
+      this.teleportTimer = millis() / 1000;
     }
   }
 
