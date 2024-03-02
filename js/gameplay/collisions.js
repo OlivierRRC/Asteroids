@@ -24,13 +24,11 @@ class Collisions {
                 continue;
               }
               if (a instanceof Ship) {
-                print(a.invincible);
                 if (a.invincible == true) {
                   continue;
                 }
               }
               if (b instanceof Ship) {
-                print(b.invincible);
                 if ((b.invincible = true)) {
                   continue;
                 }

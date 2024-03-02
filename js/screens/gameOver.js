@@ -1,5 +1,5 @@
 class GameOver {
-  constructor(mouse, states, bounds, scores) {
+  constructor(mouse, states, bounds, scores, core) {
     this.mouse = mouse;
     this.states = states;
     this.bounds = bounds;
@@ -8,6 +8,10 @@ class GameOver {
     this.textPos = 0;
 
     this.b = new Button(0, 125, 40, "NEXT", () => {
+      print(this.game);
+      this.game.setup();
+      print(this.game);
+
       this.states.current = this.states.leaderboard;
 
       this.scores.push({
@@ -18,6 +22,10 @@ class GameOver {
       this.scores = this.scores.sort(({ score: a }, { score: b }) => b - a);
       storeItem("scores", this.scores);
     });
+  }
+
+  setGame(game) {
+    this.game = game;
   }
 
   getInitials() {

@@ -34,6 +34,8 @@ function setup() {
   main = new MainMenu(transMouse, states, bounds);
   game = new Game(states, bounds, gameOver);
 
+  gameOver.setGame(game);
+
   createCanvas(bounds.x, bounds.y);
   states.current = states.main;
 }

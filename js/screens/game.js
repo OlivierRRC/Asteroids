@@ -1,5 +1,14 @@
 class Game {
   constructor(states, bounds, gameOver) {
+    this.states = states;
+    this.bounds = bounds;
+    this.gameOver = gameOver;
+
+    this.setup();
+  }
+
+  setup() {
+    print("woah");
     this.objects = [];
     this.player = new Ship(bounds, this.objects);
     this.objects.push(this.player);
@@ -21,12 +30,6 @@ class Game {
     }
 
     this.collisions = new Collisions(this.objects, this.score);
-    print(this.objects);
-
-    this.states = states;
-    this.bounds = bounds;
-    this.gameOver = gameOver;
-    this.start = true;
   }
 
   update() {
