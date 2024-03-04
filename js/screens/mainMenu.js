@@ -4,7 +4,7 @@ class MainMenu {
     this.bounds = bounds;
 
     //create array of buttons
-    //each button gets an anonymous arrow fuonction to execute on click
+    //each button gets an anonymous arrow function to execute on click
     this.buttons = [];
     this.buttons.push(
       new Button(0, -25, 50, "PLAY", () => {
