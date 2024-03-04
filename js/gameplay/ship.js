@@ -36,7 +36,6 @@ class Ship extends GameObject {
     this.thrust();
     this.turn();
     this.teleport();
-
     this.drawShip();
     pop();
     this.shoot();

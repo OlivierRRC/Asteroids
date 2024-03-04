@@ -30,6 +30,9 @@ class Collisions {
               if (a instanceof Bullet && b instanceof Ship) {
                 continue;
               }
+              if (a instanceof Bullet && b instanceof Bullet) {
+                continue;
+              }
               if (a instanceof Ship) {
                 if (a.invincible == true) {
                   continue;

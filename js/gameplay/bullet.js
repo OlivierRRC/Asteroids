@@ -4,6 +4,9 @@ class Bullet extends GameObject {
     this.position = pos;
     this.rotation = rot;
     this.objects = objects;
+
+    this.lifetime = 3;
+    this.timer = millis();
   }
 
   collide() {
@@ -21,5 +24,9 @@ class Bullet extends GameObject {
     strokeWeight(4);
     point(0, 0);
     pop();
+
+    if (millis() - this.timer > this.lifetime * 1000) {
+      this.collide();
+    }
   }
 }

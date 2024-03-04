@@ -10,18 +10,19 @@ class Game {
   setup() {
     this.level = 0;
     this.objects = [];
-    this.player = new Ship(bounds, this.objects);
-    this.objects.push(this.player);
-    this.populateAsteroids();
     this.score = {
       score: 0,
     };
+    this.player = new Ship(bounds, this.objects, this.score);
+    this.objects.push(this.player);
+    this.populateAsteroids();
 
     this.collisions = new Collisions(
       this.objects,
       this.score,
       this.populateAsteroids
     );
+    this.extraLives = 0;
   }
 
   populateAsteroids() {
@@ -41,19 +42,21 @@ class Game {
   }
 
   update() {
-    //this.player.update();
+    push();
+    translate(100, 100);
     for (let i = 0; i < this.objects.length; i++) {
-      //print(this.objects[i]);
       this.objects[i].update();
     }
-
+    pop();
     this.collisions.check();
+
+    this.extraLives = floor(this.score.score / 10000);
 
     this.drawScore();
     this.drawLives();
 
     //esc for game over
-    if (this.player.lives <= 0) {
+    if (this.player.lives + this.extraLives <= 0) {
       this.gameOver.setup(this.score.score);
       this.states.current = states.gameOver;
     }
@@ -61,10 +64,11 @@ class Game {
 
   drawLives() {
     push();
+
     textFont("Courier New");
     textSize(65);
     textAlign(LEFT);
-    text("♥".repeat(this.player.lives), 0 + 25, 35);
+    text("♥".repeat(this.player.lives + this.extraLives), 0 + 25, 35);
     pop();
   }
 
