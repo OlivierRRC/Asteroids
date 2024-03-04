@@ -2,7 +2,7 @@ class Collisions {
   constructor(objects, score, rePopulate) {
     this.objects = objects;
     this.score = score;
-    this.rePopulate = rePopulate;
+    this.rePopulate = rePopulate; //populate asteroids from game.js
     this.level = 1;
   }
 
@@ -10,14 +10,17 @@ class Collisions {
     this.asteroids = false;
 
     for (let i = 0; i < this.objects.length; i++) {
+      //check if there are any asteroids in the array
       if (this.objects[i] instanceof Asteroid) {
         this.asteroids = true;
       }
       for (let j = 0; j < this.objects.length; j++) {
         if (this.objects[i] != this.objects[j]) {
+          //assign the objects to variables so that if the array length changes, the refferences remain in tact
           let a = this.objects[i];
           let b = this.objects[j];
           if (a != undefined && b != undefined) {
+            //this is the distance between two circles that is concidered them touching
             let distance = a.size / 2 + b.size / 2;
             if (a.position.dist(b.position) < distance) {
               //diable collision for these interactions
@@ -33,6 +36,9 @@ class Collisions {
               if (a instanceof Bullet && b instanceof Bullet) {
                 continue;
               }
+
+              //if the ship is being collided with, check if it's invincible
+              //if it is, ignore collision
               if (a instanceof Ship) {
                 if (a.invincible == true) {
                   continue;
@@ -44,6 +50,7 @@ class Collisions {
                 }
               }
 
+              //if a bullet hits an asteroid, add points to the score
               if (a instanceof Bullet && b instanceof Asteroid) {
                 this.addPoints(b);
               }
@@ -51,6 +58,7 @@ class Collisions {
                 this.addPoints(a);
               }
 
+              //have both the a and b objects run their collide methods
               a.collide();
               b.collide();
             }
@@ -59,23 +67,24 @@ class Collisions {
       }
     }
 
+    //if there are no asteroids in the array, repopulate it
     if (this.asteroids == false) {
       this.rePopulate();
     }
   }
 
+  //add points depending on the generation of the asteroid (smaller number = smaller asteroid);
   addPoints(asteroid) {
     switch (asteroid.generation) {
       case 2:
-        this.score.score += 20;
+        this.score.value += 20;
         break;
       case 1:
-        this.score.score += 50;
+        this.score.value += 50;
         break;
       case 0:
-        this.score.score += 100;
+        this.score.value += 100;
         break;
     }
-    print(asteroid.generation);
   }
 }

@@ -14,7 +14,7 @@ class Game {
 
     //score as an object so that i can pass it to another object to be updated
     this.score = {
-      score: 0,
+      value: 0,
     };
 
     //array of all gameobjects
@@ -69,7 +69,7 @@ class Game {
     this.collisions.check();
 
     //you get one extra life for every 10,000 points earned
-    this.extraLives = floor(this.score.score / 10000);
+    this.extraLives = floor(this.score.value / 10000);
 
     this.drawScore();
     this.drawLives();
@@ -78,7 +78,7 @@ class Game {
     //also re-setup the game to be played again
     if (this.ship.lives + this.extraLives <= 0) {
       this.setup();
-      this.gameOver.setup(this.score.score);
+      this.gameOver.setup(this.score.value);
       this.states.current = states.gameOver;
     }
   }
@@ -98,6 +98,6 @@ class Game {
   drawScore() {
     textSize(50);
     textAlign(RIGHT);
-    text(nf(this.score.score, 5), this.bounds.x - 25, 25);
+    text(nf(this.score.value, 5), this.bounds.x - 25, 25);
   }
 }
