@@ -16,10 +16,10 @@ class Ship extends GameObject {
     this.rAcceleration = 0;
     this.rVelocity = 0;
 
-    this.teleportCooldown = 3;
+    this.teleportCooldown = 2;
     this.teleportTimer = 0;
 
-    this.shotCooldown = 0.5;
+    this.shotCooldown = 0.4;
     this.shotTimer = 0;
   }
 
@@ -125,8 +125,17 @@ class Ship extends GameObject {
       keyIsDown(16) &&
       millis() / 1000 > this.teleportTimer + this.teleportCooldown
     ) {
-      let pos = createVector(random(this.bounds.x), random(this.bounds.y));
-      this.position = pos;
+      let newPos = createVector(random(this.bounds.x), random(this.bounds.y));
+      let lastPos = this.position.copy();
+
+      //trail effect to keep track of where the ship is better
+      push();
+      rotate(-this.rotation);
+      line(0, 0, newPos.x - lastPos.x, newPos.y - lastPos.y);
+      pop();
+
+      this.position = newPos;
+
       this.teleportTimer = millis() / 1000;
       this.invincible = false;
     }
