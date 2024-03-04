@@ -42,8 +42,6 @@ function setup() {
   gameOver = new GameOver(transMouse, states, bounds, scores);
   main = new MainMenu(transMouse, states, bounds);
   game = new Game(states, bounds, gameOver);
-  //both gameover and game need references to eacheother, so this is how I handle that
-  gameOver.setGame(game);
 
   createCanvas(bounds.x, bounds.y);
   //set the current game state to be showing the main menu

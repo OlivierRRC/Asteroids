@@ -9,8 +9,8 @@ class Asteroid extends GameObject {
     this.s = size;
     this.points = [];
     this.generateShape();
-    this.setRot(startRot);
-    this.setPos(startPos);
+    this.rotation = startRot;
+    this.position = startPos;
   }
 
   collide() {

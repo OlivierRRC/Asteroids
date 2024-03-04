@@ -1,34 +1,21 @@
 class GameObject {
   constructor(bounds, size) {
-    this.position = createVector(bounds.x / 2, bounds.y / 2);
     this.position = createVector(0, 0);
     this.rotation = 0;
     this.bounds = bounds;
     this.size = size;
   }
 
+  //transform the object acording to the rotation and postion
   transform() {
     translate(this.position);
     rotate(this.rotation);
     this.wrapPos();
   }
 
-  setPos(pos) {
-    this.position = pos;
-  }
-  setRot(rot) {
-    this.rotation = rot;
-  }
-
-  getPos() {
-    return this.position;
-  }
-  getRot() {
-    return this.rotation;
-  }
-
   collide() {}
 
+  //wrap the position of the object over the edges of the screen
   wrapPos() {
     if (this.position.x > this.bounds.x + this.size) {
       this.position.x = 0 - this.size;

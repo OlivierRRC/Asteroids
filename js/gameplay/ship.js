@@ -15,7 +15,7 @@ class Ship extends GameObject {
 
     this.objects = objects;
 
-    this.setPos(createVector(bounds.x / 2, bounds.y / 2));
+    this.position = createVector(bounds.x / 2, bounds.y / 2);
     this.invincible = true;
     this.lives = 3;
     this.screenShake = screenShake;
@@ -75,11 +75,11 @@ class Ship extends GameObject {
     this.rVelocity += this.rAcceleration;
     this.rVelocity += this.rVelocity * 0.04 * -1;
     this.rVelocity = constrain(this.rVelocity, -0.1, 0.1);
-    this.setRot(this.getRot() + this.rVelocity);
+    this.rotation = this.rotation + this.rVelocity;
   }
 
   thrust() {
-    //get input
+    //get input ('w' key)
     if (keyIsDown(87)) {
       let x = 1 * cos(this.rotation - PI / 2);
       let y = 1 * sin(this.rotation - PI / 2);
@@ -96,18 +96,16 @@ class Ship extends GameObject {
     //limit
     this.velocity.limit(5);
     //apply
-    this.setPos(this.getPos().add(this.velocity));
+    this.position = this.position.add(this.velocity);
   }
 
   teleport() {
-    //print();
-
     if (
       keyIsDown(16) &&
       millis() / 1000 > this.teleportTimer + this.teleportCooldown
     ) {
       let pos = createVector(random(width), random(height));
-      this.setPos(pos);
+      this.position(pos);
       this.teleportTimer = millis() / 1000;
       this.invincible = false;
     }
