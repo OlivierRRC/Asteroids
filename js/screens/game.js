@@ -88,9 +88,9 @@ class Game {
     push();
 
     textFont("Courier New");
-    textSize(65);
+    textSize(50);
     textAlign(LEFT);
-    text("♥".repeat(this.ship.lives + this.extraLives), 0 + 25, 35);
+    text("⛯".repeat(this.ship.lives + this.extraLives), 25, 40);
     pop();
   }
 

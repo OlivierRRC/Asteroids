@@ -1,6 +1,15 @@
 class Ship extends GameObject {
   constructor(bounds, objects, screenShake) {
     super(bounds, 15);
+
+    this.objects = objects;
+    this.screenShake = screenShake;
+
+    this.invincible = true;
+    this.lives = 3;
+
+    this.position = createVector(bounds.x / 2, bounds.y / 2);
+
     this.acceleration = createVector(0, 0);
     this.velocity = createVector(0, 0);
 
@@ -12,15 +21,9 @@ class Ship extends GameObject {
 
     this.shotCooldown = 0.5;
     this.shotTimer = 0;
-
-    this.objects = objects;
-
-    this.position = createVector(bounds.x / 2, bounds.y / 2);
-    this.invincible = true;
-    this.lives = 3;
-    this.screenShake = screenShake;
   }
 
+  //when collided with, return to center of the screen, enable invinciblity, and remove one life
   collide() {
     this.position.x = bounds.x / 2;
     this.position.y = bounds.y / 2;
@@ -32,16 +35,20 @@ class Ship extends GameObject {
 
   update() {
     push();
-    this.transform();
     strokeWeight(4);
+    this.transform();
     this.thrust();
     this.turn();
     this.teleport();
     this.drawShip();
-    pop();
     this.shoot();
+    pop();
   }
 
+  //when space is pressed
+  //if the you have waited for the cooldown
+  //create a new bullet and add it to objects array
+  //also add some backwards velocity
   shoot() {
     if (keyIsDown(32) && millis() / 1000 > this.shotTimer + this.shotCooldown) {
       let x = 1 * cos(this.rotation - PI / 2);
@@ -62,6 +69,9 @@ class Ship extends GameObject {
     }
   }
 
+  //when a or d is pressed
+  //add rotation acceleration to teh rotation velocity
+  //add the rotation velocity to the rotation of the object
   turn() {
     if (keyIsDown(65)) {
       this.rAcceleration -= (PI / 180) * 0.01;
@@ -78,6 +88,9 @@ class Ship extends GameObject {
     this.rotation = this.rotation + this.rVelocity;
   }
 
+  //when you press the w key
+  //add acceleration to velocity
+  //add velocity to position
   thrust() {
     //get input ('w' key)
     if (keyIsDown(87)) {
@@ -99,13 +112,14 @@ class Ship extends GameObject {
     this.position = this.position.add(this.velocity);
   }
 
+  //when shift is preseed, move the ship to a random position
   teleport() {
     if (
       keyIsDown(16) &&
       millis() / 1000 > this.teleportTimer + this.teleportCooldown
     ) {
-      let pos = createVector(random(width), random(height));
-      this.position(pos);
+      let pos = createVector(random(this.bounds.x), random(this.bounds.y));
+      this.position = pos;
       this.teleportTimer = millis() / 1000;
       this.invincible = false;
     }
