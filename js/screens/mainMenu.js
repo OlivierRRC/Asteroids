@@ -3,11 +3,12 @@ class MainMenu {
     this.mouse = mouse;
     this.bounds = bounds;
 
+    //create array of buttons
+    //each button gets an anonymous arrow fuonction to execute on click
     this.buttons = [];
     this.buttons.push(
       new Button(0, -25, 50, "PLAY", () => {
         states.current = states.game;
-        //gameOver.setup(floor(random(0, 10000)));
       })
     );
     this.buttons.push(
@@ -18,7 +19,7 @@ class MainMenu {
   }
 
   draw() {
-    //Big title "ASTEROIDS"
+    //draw big title "ASTEROIDS"
     push();
 
     translate(this.bounds.x / 2, this.bounds.y / 3);
@@ -26,7 +27,8 @@ class MainMenu {
     text("ASTEROIDS", 0, 0);
 
     pop();
-    //Buttons
+
+    //draw and process input for buttons
     push();
 
     translate(this.bounds.x / 2, (this.bounds.y / 3) * 2);
