@@ -4,6 +4,8 @@ class Game {
     this.bounds = bounds;
     this.gameOver = gameOver;
 
+    this.screenShake = new ScreenShake();
+
     this.setup();
   }
 
@@ -13,7 +15,7 @@ class Game {
     this.score = {
       score: 0,
     };
-    this.player = new Ship(bounds, this.objects, this.score);
+    this.player = new Ship(bounds, this.objects, this.screenShake);
     this.objects.push(this.player);
     this.populateAsteroids();
 
@@ -43,7 +45,7 @@ class Game {
 
   update() {
     push();
-    translate(100, 100);
+    this.screenShake.update();
     for (let i = 0; i < this.objects.length; i++) {
       this.objects[i].update();
     }

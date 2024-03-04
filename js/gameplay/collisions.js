@@ -53,9 +53,6 @@ class Collisions {
 
               a.collide();
               b.collide();
-
-              //im removing an item uppon collision, this shifts the array thus invalidating the second collision
-              //i can fix this by keeping a refference to the objects and removing based on indexOf instead of relying on index
             }
           }
         }

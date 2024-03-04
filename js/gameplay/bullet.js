@@ -1,5 +1,5 @@
 class Bullet extends GameObject {
-  constructor(bounds, objects, pos, rot) {
+  constructor(bounds, objects, pos, rot, screenShake) {
     super(bounds, 8);
     this.position = pos;
     this.rotation = rot;
@@ -7,9 +7,12 @@ class Bullet extends GameObject {
 
     this.lifetime = 3;
     this.timer = millis();
+    this.screenShake = screenShake;
+    this.screenShake.add(1);
   }
 
   collide() {
+    this.screenShake.add(3);
     let index = this.objects.indexOf(this);
     this.objects.splice(index, 1);
   }
@@ -26,7 +29,8 @@ class Bullet extends GameObject {
     pop();
 
     if (millis() - this.timer > this.lifetime * 1000) {
-      this.collide();
+      let index = this.objects.indexOf(this);
+      this.objects.splice(index, 1);
     }
   }
 }

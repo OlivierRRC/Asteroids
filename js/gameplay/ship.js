@@ -1,5 +1,5 @@
 class Ship extends GameObject {
-  constructor(bounds, objects) {
+  constructor(bounds, objects, screenShake) {
     super(bounds, 15);
     this.acceleration = createVector(0, 0);
     this.velocity = createVector(0, 0);
@@ -18,6 +18,7 @@ class Ship extends GameObject {
     this.setPos(createVector(bounds.x / 2, bounds.y / 2));
     this.invincible = true;
     this.lives = 3;
+    this.screenShake = screenShake;
   }
 
   collide() {
@@ -51,7 +52,8 @@ class Ship extends GameObject {
           this.bounds,
           this.objects,
           this.position.copy().add(dir.copy().mult(20)),
-          this.rotation
+          this.rotation,
+          this.screenShake
         )
       );
       this.velocity.sub(dir);
