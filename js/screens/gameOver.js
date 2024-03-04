@@ -9,8 +9,6 @@ class GameOver {
 
     //button gets an anonymous arrow function to execute on click
     this.b = new Button(0, 125, 40, "NEXT", () => {
-      this.game.setup(1); //sets up the game to be played again
-
       //add the score to the scores array
       this.scores.push({
         name: this.initials,
@@ -25,10 +23,6 @@ class GameOver {
       //change screen to the leaderboard
       states.current = states.leaderboard;
     });
-  }
-
-  setGame(game) {
-    this.game = game;
   }
 
   //gets score from the game and sets the initials to an empty string

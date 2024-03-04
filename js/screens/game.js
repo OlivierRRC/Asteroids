@@ -11,24 +11,37 @@ class Game {
 
   setup() {
     this.level = 0;
-    this.objects = [];
+
+    //score as an object so that i can pass it to another object to be updated
     this.score = {
       score: 0,
     };
-    this.player = new Ship(bounds, this.objects, this.screenShake);
-    this.objects.push(this.player);
+
+    //array of all gameobjects
+    this.objects = [];
+
+    //add ship to the objects array
+    this.ship = new Ship(bounds, this.objects, this.screenShake);
+    this.objects.push(this.ship);
+
+    //the amount of extra lives the player has
+    this.extraLives = 0;
+
+    //add asteroids
     this.populateAsteroids();
 
+    //create collision object to handle collision for all objects
     this.collisions = new Collisions(
       this.objects,
       this.score,
       this.populateAsteroids
     );
-    this.extraLives = 0;
   }
 
+  //adds one more asteroid everytime its called
   populateAsteroids() {
     this.level += 1;
+    //adds asteroids into objects array
     for (let i = 0; i < this.level; i++) {
       this.objects.push(
         new Asteroid(
@@ -44,36 +57,44 @@ class Game {
   }
 
   update() {
+    //apply screenshake in push pop context so that it dosent affect the hud
     push();
     this.screenShake.update();
     for (let i = 0; i < this.objects.length; i++) {
       this.objects[i].update();
     }
     pop();
+
+    //check if anything is colliding
     this.collisions.check();
 
+    //you get one extra life for every 10,000 points earned
     this.extraLives = floor(this.score.score / 10000);
 
     this.drawScore();
     this.drawLives();
 
-    //esc for game over
-    if (this.player.lives + this.extraLives <= 0) {
+    //if the ship runs out of lives, pass the score to gamover, and switch to the gameover script
+    //also re-setup the game to be played again
+    if (this.ship.lives + this.extraLives <= 0) {
+      this.setup();
       this.gameOver.setup(this.score.score);
       this.states.current = states.gameOver;
     }
   }
 
+  //draw the player's lives on the screen
   drawLives() {
     push();
 
     textFont("Courier New");
     textSize(65);
     textAlign(LEFT);
-    text("♥".repeat(this.player.lives + this.extraLives), 0 + 25, 35);
+    text("♥".repeat(this.ship.lives + this.extraLives), 0 + 25, 35);
     pop();
   }
 
+  //draw the player's score on the screen
   drawScore() {
     textSize(50);
     textAlign(RIGHT);
