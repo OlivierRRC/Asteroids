@@ -77,8 +77,8 @@ class Game {
     //if the ship runs out of lives, pass the score to gamover, and switch to the gameover script
     //also re-setup the game to be played again
     if (this.ship.lives + this.extraLives <= 0) {
-      this.setup();
       this.gameOver.setup(this.score.value);
+      this.setup();
       this.states.current = states.gameOver;
     }
   }
