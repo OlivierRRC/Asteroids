@@ -5,7 +5,6 @@ class Game {
     this.gameOver = gameOver;
 
     this.screenShake = new ScreenShake();
-
     this.setup();
   }
 
