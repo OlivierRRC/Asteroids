@@ -23,6 +23,13 @@ class Ship extends GameObject {
     this.shotTimer = 0;
   }
 
+  //this is a test for when i implement flying saucers
+  wrapPos() {
+    if (super.wrapPos() == true) {
+      print("aaa");
+    }
+  }
+
   //when collided with, return to center of the screen, enable invinciblity, and remove one life
   collide() {
     this.position.x = bounds.x / 2;
