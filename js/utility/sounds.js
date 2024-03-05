@@ -29,6 +29,8 @@ class Sounds {
   //plays the start of the track and switches over to playing the loop afterwards
   //also loops the saucer effect at 0 volume for later
   playMusic() {
+    this.musicStart.setVolume(this.musicVolume);
+    this.musicLoop.setVolume(this.musicVolume);
     this.saucer.loop();
     this.musicStart.addCue(this.musicStart.duration() - 0.01, () => {
       this.musicLoop.loop();
@@ -37,9 +39,12 @@ class Sounds {
   }
 
   //stop playing the music when the game is over
+  //stops other looping sounds if they happen to be playing
   stopMusic() {
     this.musicStart.stop();
     this.musicLoop.stop();
+    this.engine.stop();
+    this.saucer.stop();
   }
 
   //start looping the thruster noise
