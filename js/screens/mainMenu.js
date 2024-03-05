@@ -1,5 +1,5 @@
 class MainMenu {
-  constructor(mouse, states, bounds) {
+  constructor(mouse, states, bounds, sounds) {
     this.mouse = mouse;
     this.bounds = bounds;
 
@@ -8,6 +8,7 @@ class MainMenu {
     this.buttons = [];
     this.buttons.push(
       new Button(0, -25, 50, "PLAY", () => {
+        sounds.playMusic();
         states.current = states.game;
       })
     );

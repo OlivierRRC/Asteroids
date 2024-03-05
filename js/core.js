@@ -1,5 +1,7 @@
 let font;
 
+let sounds;
+
 //a variable for each of the screens that will be displayed
 let main;
 let leaderBoard;
@@ -37,11 +39,13 @@ function setup() {
 
   bounds = createVector(640, 480);
 
+  sounds = new Sounds();
+
   //create all the different screens
   leaderBoard = new LeaderBoard(transMouse, states, bounds, scores);
   gameOver = new GameOver(transMouse, states, bounds, scores);
-  main = new MainMenu(transMouse, states, bounds);
-  game = new Game(states, bounds, gameOver);
+  main = new MainMenu(transMouse, states, bounds, sounds);
+  game = new Game(states, bounds, gameOver, sounds);
 
   createCanvas(bounds.x, bounds.y);
   //set the current game state to be showing the main menu

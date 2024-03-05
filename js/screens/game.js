@@ -1,8 +1,9 @@
 class Game {
-  constructor(states, bounds, gameOver) {
+  constructor(states, bounds, gameOver, sounds) {
     this.states = states;
     this.bounds = bounds;
     this.gameOver = gameOver;
+    this.sounds = sounds;
 
     this.screenShake = new ScreenShake();
     this.setup();
@@ -49,7 +50,8 @@ class Game {
           createVector(random(bounds.x), random(bounds.y)),
           random(TWO_PI),
           50,
-          2
+          2,
+          this.sounds
         )
       );
     }
@@ -76,6 +78,7 @@ class Game {
     //if the ship runs out of lives, pass the score to gamover, and switch to the gameover script
     //also re-setup the game to be played again
     if (this.ship.lives + this.extraLives <= 0) {
+      this.sounds.stopMusic();
       this.gameOver.setup(this.score.value);
       this.setup();
       this.states.current = states.gameOver;

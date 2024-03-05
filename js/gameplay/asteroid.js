@@ -1,11 +1,12 @@
 class Asteroid extends GameObject {
-  constructor(bounds, objects, startPos, startRot, size, generation) {
+  constructor(bounds, objects, startPos, startRot, size, generation, sounds) {
     super(bounds, size);
 
     this.objects = objects;
     this.rotation = startRot;
     this.position = startPos;
     this.s = size;
+    this.sounds = sounds;
 
     this.generation = generation; //generation starts at 2 and goes down to 0, numbers corespond to asteroid size
 
@@ -34,6 +35,7 @@ class Asteroid extends GameObject {
   //when collided with, create two asteroids of a smaller generation, unless this astroid is of generation 0
   //remove this asteroid from the objects array
   collide() {
+    this.sounds.playSound(0);
     if (this.generation != 0) {
       for (let i = 0; i < 2; i++) {
         this.objects.push(
@@ -43,7 +45,8 @@ class Asteroid extends GameObject {
             this.position.copy(),
             this.rotation + (PI / 4) * i,
             (this.s / 3) * 2,
-            this.generation - 1
+            this.generation - 1,
+            this.sounds
           )
         );
       }
