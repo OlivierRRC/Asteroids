@@ -1,9 +1,10 @@
 class Ship extends GameObject {
-  constructor(bounds, objects, screenShake) {
+  constructor(bounds, objects, screenShake, sounds) {
     super(bounds, 15);
 
     this.objects = objects;
     this.screenShake = screenShake;
+    this.sounds = sounds;
 
     this.invincible = true;
     this.lives = 3;
@@ -58,6 +59,7 @@ class Ship extends GameObject {
   //also add some backwards velocity
   shoot() {
     if (keyIsDown(32) && millis() / 1000 > this.shotTimer + this.shotCooldown) {
+      this.sounds.playSound("shoot");
       let x = 1 * cos(this.rotation - PI / 2);
       let y = 1 * sin(this.rotation - PI / 2);
       let dir = createVector(x, y);
@@ -101,12 +103,14 @@ class Ship extends GameObject {
   thrust() {
     //get input ('w' key)
     if (keyIsDown(87)) {
+      this.sounds.startThrust();
       let x = 1 * cos(this.rotation - PI / 2);
       let y = 1 * sin(this.rotation - PI / 2);
       this.acceleration.add(createVector(x, y).div(100));
       this.drawThruster();
       this.invincible = false;
     } else {
+      this.sounds.stopThrust();
       this.acceleration = createVector(0, 0);
     }
     //accelerate
@@ -125,6 +129,7 @@ class Ship extends GameObject {
       keyIsDown(16) &&
       millis() / 1000 > this.teleportTimer + this.teleportCooldown
     ) {
+      this.sounds.playSound("teleport");
       let newPos = createVector(random(this.bounds.x), random(this.bounds.y));
       let lastPos = this.position.copy();
 

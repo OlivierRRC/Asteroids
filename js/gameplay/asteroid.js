@@ -35,7 +35,7 @@ class Asteroid extends GameObject {
   //when collided with, create two asteroids of a smaller generation, unless this astroid is of generation 0
   //remove this asteroid from the objects array
   collide() {
-    this.sounds.playSound(0);
+    this.sounds.playSound("hit");
     if (this.generation != 0) {
       for (let i = 0; i < 2; i++) {
         this.objects.push(

@@ -1,9 +1,10 @@
 class Collisions {
-  constructor(objects, score, rePopulate) {
+  constructor(objects, score, rePopulate, sounds) {
     this.objects = objects;
     this.score = score;
     this.rePopulate = rePopulate; //populate asteroids from game.js
     this.level = 1;
+    this.sounds = sounds;
   }
 
   check() {

@@ -21,7 +21,7 @@ class Game {
     this.objects = [];
 
     //add ship to the objects array
-    this.ship = new Ship(bounds, this.objects, this.screenShake);
+    this.ship = new Ship(bounds, this.objects, this.screenShake, this.sounds);
     this.objects.push(this.ship);
 
     //the amount of extra lives the player has
@@ -34,7 +34,8 @@ class Game {
     this.collisions = new Collisions(
       this.objects,
       this.score,
-      this.populateAsteroids
+      this.populateAsteroids,
+      this.sounds
     );
   }
 
