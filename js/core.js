@@ -1,6 +1,7 @@
 let font;
 
 let sounds;
+let sfx = [];
 
 //a variable for each of the screens that will be displayed
 let main;
@@ -26,6 +27,16 @@ let bounds;
 //load the font to be used for the text in the game
 function preload() {
   font = loadFont("Assets/NovaMono-Regular.ttf");
+
+  sfx.push(loadSound("Assets/MusicStart.wav"));
+  sfx.push(loadSound("Assets/MusicLoop.wav"));
+
+  sfx.push(loadSound("Assets/SFX/Hit.wav"));
+  sfx.push(loadSound("Assets/SFX/Explosion.wav"));
+  sfx.push(loadSound("Assets/SFX/Shoot.wav"));
+  sfx.push(loadSound("Assets/SFX/Teleport.wav"));
+  sfx.push(loadSound("Assets/SFX/Engine.wav"));
+  sfx.push(loadSound("Assets/SFX/Saucer.wav"));
 }
 
 function setup() {
@@ -39,7 +50,7 @@ function setup() {
 
   bounds = createVector(640, 480);
 
-  sounds = new Sounds();
+  sounds = new Sounds(sfx);
 
   //create all the different screens
   leaderBoard = new LeaderBoard(transMouse, states, bounds, scores);

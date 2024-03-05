@@ -1,19 +1,17 @@
 class Sounds {
-  constructor() {
+  constructor(sfx) {
     this.sfxVolume = 0.2;
     this.musicVolume = 0.1;
 
-    //loading all these sounds should technically be done in preload, but it seems to work here?
+    this.musicStart = sfx[0];
+    this.musicLoop = sfx[1];
 
-    this.musicStart = loadSound("Assets/MusicStart.wav");
-    this.musicLoop = loadSound("Assets/MusicLoop.wav");
-
-    this.hit = loadSound("Assets/SFX/Hit.wav");
-    this.explosion = loadSound("Assets/SFX/Explosion.wav");
-    this.shoot = loadSound("Assets/SFX/Shoot.wav");
-    this.teleport = loadSound("Assets/SFX/Teleport.wav");
-    this.engine = loadSound("Assets/SFX/Engine.wav");
-    this.saucer = loadSound("Assets/SFX/Saucer.wav");
+    this.hit = sfx[2];
+    this.explosion = sfx[3];
+    this.shoot = sfx[4];
+    this.teleport = sfx[5];
+    this.engine = sfx[6];
+    this.saucer = sfx[7];
 
     this.musicStart.setVolume(this.musicVolume);
     this.musicLoop.setVolume(this.musicVolume);
