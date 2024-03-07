@@ -13,12 +13,12 @@ class Bullet extends GameObject {
 
     this.screenShake = screenShake;
     //when the object is spawned in, it adds some screenshake
-    this.screenShake.add(1);
+    this.screenShake.add(2);
   }
 
   //when collided with, add some screenshake and remove from objects array
   collide() {
-    this.screenShake.add(3);
+    this.screenShake.add(5);
     let index = this.objects.indexOf(this);
     this.objects.splice(index, 1);
   }

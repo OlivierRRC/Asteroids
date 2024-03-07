@@ -7,7 +7,7 @@ class ScreenShake {
   update() {
     //makes the amplitude smaller every frame
     if (this.amplitude > 0) {
-      this.amplitude -= 0.1;
+      this.amplitude *= 0.9;
     } else {
       return; //if the amplitude is smaller than or = 0 do nothing
     }
