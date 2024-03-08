@@ -28,14 +28,31 @@ class Collisions {
               if (a instanceof Asteroid && b instanceof Asteroid) {
                 continue;
               }
+
               if (a instanceof Ship && b instanceof Bullet) {
-                continue;
+                if (b.tag == "ship") {
+                  continue;
+                }
               }
               if (a instanceof Bullet && b instanceof Ship) {
-                continue;
+                if (a.tag == "ship") {
+                  continue;
+                }
               }
+
               if (a instanceof Bullet && b instanceof Bullet) {
                 continue;
+              }
+
+              if (a instanceof Saucer && b instanceof Bullet) {
+                if (b.tag == "saucer") {
+                  continue;
+                }
+              }
+              if (a instanceof Bullet && b instanceof Saucer) {
+                if (a.tag == "saucer") {
+                  continue;
+                }
               }
 
               //if the ship is being collided with, check if it's invincible
@@ -53,15 +70,31 @@ class Collisions {
 
               //if a bullet hits an asteroid, add points to the score
               if (a instanceof Bullet && b instanceof Asteroid) {
-                this.addPoints(b);
+                if (a.tag == "ship") {
+                  this.addPoints(b);
+                }
               }
               if (a instanceof Asteroid && b instanceof Bullet) {
-                this.addPoints(a);
+                if (b.tag == "ship") {
+                  this.addPoints(a);
+                }
+              }
+
+              //if a bullet hits a saucer, add points
+              if (a instanceof Saucer && b instanceof Asteroid) {
+                if (a.tag == "ship") {
+                }
+              }
+              if (a instanceof Saucer && b instanceof Bullet) {
+                if (b.tag == "ship") {
+                  this.score.value += 200;
+                }
               }
 
               //have both the a and b objects run their collide methods
               a.collide();
               b.collide();
+              return;
             }
           }
         }
@@ -70,6 +103,7 @@ class Collisions {
 
     //if there are no asteroids in the array, repopulate it
     if (this.asteroids == false) {
+      print("all out");
       this.rePopulate();
     }
   }

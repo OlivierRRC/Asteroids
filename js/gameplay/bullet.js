@@ -1,9 +1,11 @@
 class Bullet extends GameObject {
-  constructor(bounds, objects, pos, rot, screenShake) {
+  constructor(bounds, objects, pos, rot, screenShake, tag) {
     super(bounds, 10);
     this.objects = objects;
     this.position = pos;
     this.rotation = rot;
+
+    this.tag = tag;
 
     this.speed = 5;
 

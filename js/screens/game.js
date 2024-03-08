@@ -7,6 +7,9 @@ class Game {
 
     this.screenShake = new ScreenShake();
     this.setup();
+
+    this.saucerInterval = 300;
+    this.currentInterval = this.saucerInterval;
   }
 
   setup() {
@@ -23,6 +26,8 @@ class Game {
     //add ship to the objects array
     this.ship = new Ship(bounds, this.objects, this.screenShake, this.sounds);
     this.objects.push(this.ship);
+
+    //this.objects.push(new Saucer(bounds, this.objects, 30, this.screenShake));
 
     //the amount of extra lives the player has
     this.extraLives = 0;
@@ -65,6 +70,7 @@ class Game {
     for (let i = 0; i < this.objects.length; i++) {
       this.objects[i].update();
     }
+
     pop();
 
     //check if anything is colliding
@@ -83,6 +89,14 @@ class Game {
       this.gameOver.setup(this.score.value);
       this.setup();
       this.states.current = states.gameOver;
+    }
+
+    //spawns in saucer at set interval
+    if (this.score.value >= this.currentInterval) {
+      this.objects.push(
+        new Saucer(bounds, this.objects, 30, this.screenShake, this.sounds)
+      );
+      this.currentInterval *= 3;
     }
   }
 

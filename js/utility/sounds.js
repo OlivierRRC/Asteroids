@@ -43,6 +43,7 @@ class Sounds {
     this.musicLoop.stop();
     this.engine.stop();
     this.saucer.stop();
+    this.saucer.setVolume(0);
   }
 
   //start looping the thruster noise
