@@ -93,9 +93,25 @@ class Game {
 
     //spawns in saucer at set interval
     if (this.score.value >= this.currentInterval) {
-      this.objects.push(
-        new Saucer(bounds, this.objects, 30, this.screenShake, this.sounds)
-      );
+      if (random() > 0.9) {
+        //small saucer
+        this.objects.push(
+          new Saucer(
+            bounds,
+            this.objects,
+            20,
+            this.screenShake,
+            this.sounds,
+            this.score.value
+          )
+        );
+      } else {
+        //large saucer
+        this.objects.push(
+          new Saucer(bounds, this.objects, 45, this.screenShake, this.sounds)
+        );
+      }
+
       this.currentInterval *= 3;
     }
   }

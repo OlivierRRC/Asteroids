@@ -1,10 +1,12 @@
 class Saucer extends GameObject {
-  constructor(bounds, objects, size, screenShake, sounds) {
+  constructor(bounds, objects, size, screenShake, sounds, score) {
     super(bounds, size);
     this.objects = objects;
     this.position = createVector(-size / 2, random(bounds.y));
     this.screenShake = screenShake;
     this.target = objects[0];
+
+    this.score = score;
 
     this.sounds = sounds;
     sounds.saucerEnter();
@@ -33,6 +35,13 @@ class Saucer extends GameObject {
       this.target.position.y - this.position.y,
       this.target.position.x - this.position.x
     );
+
+    if (this.score > 5000) {
+      this.rotation = atan2(
+        this.target.position.y + this.target.velocity.y - this.position.y,
+        this.target.position.x + this.target.velocity.x - this.position.x
+      );
+    }
   }
 
   shoot() {
@@ -41,12 +50,28 @@ class Saucer extends GameObject {
       let x = 1 * cos(this.rotation);
       let y = 1 * sin(this.rotation);
       let dir = createVector(x, y);
+
+      let rotationRange;
+
+      if (this.score == undefined) {
+        //regular aim
+        rotationRange = (TWO_PI / 360) * this.size;
+      } else if (this.score <= 5000) {
+        //better aim
+        rotationRange = (TWO_PI / 360) * this.size - score / 5000;
+      } else {
+        rotationRange = (TWO_PI / 360) * this.size - score / 5000;
+      }
+
+      let bulletRotation =
+        this.rotation + PI / 2 + random(-rotationRange, rotationRange);
+
       this.objects.push(
         new Bullet(
           this.bounds,
           this.objects,
           this.position.copy().add(dir.copy().mult(this.size)),
-          this.rotation + PI / 2 + random(-PI / 4, PI / 4),
+          bulletRotation,
           this.screenShake,
           "saucer"
         )
