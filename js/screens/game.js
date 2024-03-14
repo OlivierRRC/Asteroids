@@ -13,6 +13,8 @@ class Game {
   }
 
   setup() {
+    this.saucerInterval = 300;
+    this.currentInterval = this.saucerInterval;
     this.level = 0;
 
     //score as an object so that i can pass it to another object to be updated
@@ -93,7 +95,7 @@ class Game {
 
     //spawns in saucer at set interval
     if (this.score.value >= this.currentInterval) {
-      if (random() > 0.0) {
+      if (random() > 0.8) {
         //small saucer
         this.objects.push(
           new Saucer(
@@ -103,7 +105,7 @@ class Game {
             this.screenShake,
             this.sounds,
             this.score.value,
-            true
+            false
           )
         );
       } else {
@@ -116,7 +118,7 @@ class Game {
             this.screenShake,
             this.sounds,
             undefined,
-            true
+            false
           )
         );
       }
