@@ -73,21 +73,26 @@ class Ship extends GameObject {
   }
 
   //when a or d is pressed
-  //add rotation acceleration to teh rotation velocity
+  //add rotation acceleration to the rotation velocity
   //add the rotation velocity to the rotation of the object
   turn() {
     if (keyIsDown(65)) {
-      this.rAcceleration -= (PI / 180) * 0.01;
+      this.rAcceleration -= (PI / 180) * 0.07;
       this.invincible = false;
     } else if (keyIsDown(68)) {
-      this.rAcceleration += (PI / 180) * 0.01;
+      this.rAcceleration += (PI / 180) * 0.07;
       this.invincible = false;
     } else {
       this.rAcceleration = 0;
     }
+
+    //accelerate
     this.rVelocity += this.rAcceleration;
-    this.rVelocity += this.rVelocity * 0.04 * -1;
-    this.rVelocity = constrain(this.rVelocity, -0.1, 0.1);
+    //friction
+    this.rVelocity += this.rVelocity * 0.07 * -1;
+    //limit
+    this.rVelocity = constrain(this.rVelocity, -0.07, 0.07);
+    //apply
     this.rotation = this.rotation + this.rVelocity;
   }
 

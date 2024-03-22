@@ -48,15 +48,7 @@ class GameOver {
     push();
     translate(this.bounds.x / 2, this.bounds.y / 3);
     textSize(100);
-    text("GAME  OVER", 0, 0);
-    pop();
-
-    //sad face TO BE REMOVED eventually
-    push();
-    translate(this.bounds.x / 2, this.bounds.y / 3 + 25);
-    textFont("Courier New");
-    textSize(100);
-    text("☹", 0, 0);
+    text("GAME OVER", 0, 0);
     pop();
 
     //draw the input prompt

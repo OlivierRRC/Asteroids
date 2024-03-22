@@ -6,7 +6,7 @@ class Saucer extends GameObject {
     this.screenShake = screenShake;
     this.target = objects[0];
 
-    this.scoreThreshold = 300;
+    this.scoreThreshold = 3000;
 
     this.score = score;
 
@@ -23,15 +23,6 @@ class Saucer extends GameObject {
     this.sounds.saucerExit();
     let index = this.objects.indexOf(this);
     this.objects.splice(index, 1);
-  }
-
-  //destroy saucer when it leaves the screen instead of wrapping
-  wrapPos() {
-    if (super.wrapPos() == true) {
-      this.sounds.saucerExit();
-      let index = this.objects.indexOf(this);
-      this.objects.splice(index, 1);
-    }
   }
 
   //set rotation to face towards target(player)
