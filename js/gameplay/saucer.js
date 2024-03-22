@@ -117,6 +117,7 @@ class Saucer extends GameObject {
     }
   }
 
+  //a little bit complex
   draw() {
     push();
 
