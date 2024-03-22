@@ -87,7 +87,14 @@ class Collisions {
               }
               if (a instanceof Saucer && b instanceof Bullet) {
                 if (b.tag == "ship") {
-                  this.score.value += 200;
+                  if (b.size > 30) {
+                    this.score.value += 200;
+                    print("large");
+                  }
+                  if (b.size < 30) {
+                    this.score.value += 1000;
+                    print("small");
+                  }
                 }
               }
 

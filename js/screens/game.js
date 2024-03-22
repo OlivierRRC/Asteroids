@@ -123,7 +123,7 @@ class Game {
         );
       }
 
-      this.currentInterval *= 3;
+      this.currentInterval *= 2;
     }
   }
 
