@@ -20,6 +20,7 @@ class Saucer extends GameObject {
   }
 
   collide() {
+    this.sounds.playSound("hit");
     this.sounds.saucerExit();
     let index = this.objects.indexOf(this);
     this.objects.splice(index, 1);
