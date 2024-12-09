@@ -3,6 +3,8 @@ let font;
 let sounds;
 let sfx = [];
 
+
+
 //a variable for each of the screens that will be displayed
 let main;
 let leaderBoard;
@@ -23,6 +25,8 @@ let scores = [];
 
 //will be assigned a vector that is x = width  and y = height
 let bounds;
+//canvas will be scaled by this in order to fill the screen
+let scaleFactor;
 
 //load the font to be used for the text in the game
 function preload() {
@@ -58,7 +62,8 @@ function setup() {
   main = new MainMenu(transMouse, states, bounds, sounds);
   game = new Game(states, bounds, gameOver, sounds);
 
-  createCanvas(bounds.x, bounds.y);
+  calculateScale();
+  createCanvas(bounds.x*scaleFactor, bounds.y*scaleFactor);
   //set the current game state to be showing the main menu
   states.current = states.main;
 }
@@ -70,6 +75,8 @@ function draw() {
 
   textAlign(CENTER, CENTER);
   textFont(font);
+
+  scale(scaleFactor)
 
   //push pop context to contain the glow effect
   push();
@@ -103,11 +110,11 @@ function draw() {
 function crtGrill() {
   stroke(0);
   strokeWeight(0.8);
-  for (let i = 0; i < width / 4; i++) {
-    line(i * 4, 0, i * 4, height);
+  for (let i = 0; i < bounds.x / 4; i++) {
+    line(i * 4, 0, i * 4, bounds.y);
   }
-  for (let i = 0; i < height / 3; i++) {
-    line(0, i * 3, width, i * 3);
+  for (let i = 0; i < bounds.y / 3; i++) {
+    line(0, i * 3, bounds.x, i * 3);
   }
 }
 
@@ -136,3 +143,20 @@ let transMouse = function () {
     );
   return localCoord;
 };
+
+//when the window is resized, changes the scaling factor so that the window fits the browswe tab
+function windowResized(){
+  calculateScale();
+  resizeCanvas(bounds.x*scaleFactor, bounds.y*scaleFactor);
+}
+
+//calculates the scale to best fit the game to the currently open window
+function calculateScale(){
+  let xScale = windowWidth / bounds.x;
+  let yScale = windowHeight / bounds.y;
+  if(xScale < yScale){
+    scaleFactor = xScale;
+  }else{
+    scaleFactor = yScale;
+  }
+}
