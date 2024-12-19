@@ -7,11 +7,15 @@ class Button {
 
     this.h = size; //height
     this.lock = false;
+
+    //need to do this to get the proper value from the textSize function
+    textSize(size); //sets text size so that the characters are a specific height
+    this.w = textWidth(this.t);
+
   }
 
   draw() {
     textSize(this.h); //sets text size so that the characters are a specific height
-    this.w = textWidth(this.t); //for whatever reason I have to do this every frame
 
     //offset the text by -7 in its height to center it on the bounding box
     text(this.t, this.x, this.y - 7);
