@@ -74,8 +74,12 @@ class GameOver {
     //t is a series of "_"
     //this.text is the text entered by the player
     //these have spaces added to them to ensure they remain centered at all times
-    text((this.initials + "  ").slice(0, 3), 0, 50);
-    text(("  " + t).slice(-3), 0, 50);
+   // text((this.initials + "  ").slice(0, 3), 0, 50);
+   // text(("  " + t).slice(-3), 0, 50);
+
+   print(this.initials + t)
+   print(this.initials)
+   text(this.initials + t, 0, 50);
 
     //draw the button if the initals have been entered
     if (this.initials.length == 3) {

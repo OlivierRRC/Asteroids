@@ -81,10 +81,6 @@ class Collisions {
               }
 
               //if a bullet hits a saucer, add points
-              if (a instanceof Saucer && b instanceof Asteroid) {
-                if (a.tag == "ship") {
-                }
-              }
               if (a instanceof Saucer && b instanceof Bullet) {
                 if (b.tag == "ship") {
                   if (b.size > 30) {
