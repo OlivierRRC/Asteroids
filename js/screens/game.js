@@ -72,7 +72,6 @@ class Game {
     for (let i = 0; i < this.objects.length; i++) {
       this.objects[i].update();
     }
-
     pop();
 
     //check if anything is colliding
@@ -84,7 +83,7 @@ class Game {
     this.drawScore();
     this.drawLives();
 
-    //if the ship runs out of lives, pass the score to gamover, and switch to the gameover script
+    //if the ship runs out of lives, pass the score to gameover, and switch to the gameover script
     //also re-setup the game to be played again
     if (this.ship.lives + this.extraLives <= 0) {
       this.sounds.stopMusic();
@@ -130,7 +129,6 @@ class Game {
   //draw the player's lives on the screen
   drawLives() {
     push();
-
     textFont("Courier New");
     textSize(50);
     textAlign(LEFT);

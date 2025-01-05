@@ -122,7 +122,7 @@ class Ship extends GameObject {
     this.position = this.position.add(this.velocity);
   }
 
-  //when shift is preseed, move the ship to a random position
+  //when shift is pressed, move the ship to a random position
   teleport() {
     if (
       keyIsDown(16) &&
